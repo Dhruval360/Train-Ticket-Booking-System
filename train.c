@@ -209,11 +209,11 @@ void ticket_counter()
 {
 	FILE* fp;
 	int count;
-	fp = fopen("ticket_count.txt","r");
+	fp = fopen("Databases/ticket_count.txt","r");
 	fscanf(fp, "%d", &count);
 	fclose(fp);
 	count++;
-	fp = fopen("ticket_count.txt","w");
+	fp = fopen("Databases/ticket_count.txt","w");
 	fprintf(fp, "%d\n", count);
 	fclose(fp);
 }
@@ -265,7 +265,7 @@ int Signup()
 	strcpy(acc.username, usrname);
 	strcpy(acc.name, name);
 	strcpy(acc.pass, pasword);
-	sc=fopen("accounts","ab");
+	sc=fopen("Databases/accounts","ab");
 	if(sc==NULL)
 		{
 		printf("\n\t\tError: Cannot open accounts database\n");
@@ -284,7 +284,7 @@ int Login (char username[],char name[], char pass[])
 	char choice;
 
 	FILE *sc;
-	sc = fopen("accounts","rb");
+	sc = fopen("Databases/accounts","rb");
 
 	    
 	while(!feof(sc))   //Traversing till end of file
@@ -438,14 +438,14 @@ int train_seats_change(user *current_user, int seat_change, user list[], int num
  	#define no_booking 0
  	#define waiting_list_error -1
  	
-	FILE *original = fopen("train_details.txt", "r");
+	FILE *original = fopen("Databases/train_details.txt", "r");
 	if (original == NULL)
 		{
 		printf("\n\t\t\t\tNO RECORD OF TRAINS ADDED.\n");
 		fclose(original);
 		return waiting_list_error; //Showing failure to check database
 		}
-	FILE *new = fopen("train_details_temp.txt", "w");
+	FILE *new = fopen("Databases/train_details_temp.txt", "w");
 		
 	int count; //Number of data entries is written on top of each text file
 	fscanf(original, "%d", &count);
@@ -680,7 +680,7 @@ int viewdetails(int a[], date *depart)
 	int count;
 	char line[200];
 	FILE* fp;
-	fp = fopen("train_details.txt","r");
+	fp = fopen("Databases/train_details.txt","r");
 	fscanf(fp, "%d", &count);
 	
 	date *d1 = (date*)malloc(sizeof(date));
@@ -791,7 +791,7 @@ void reservation()
 				if (confirm == 'y')
 				{	
 					FILE *fpt;			
-					fpt = fopen("ticket_count.txt","r");
+					fpt = fopen("Databases/ticket_count.txt","r");
 					fscanf(fpt, "%d", &tckt_count);
 					passdetails.ticket_number = tckt_count;
 					fclose(fpt);
@@ -807,7 +807,7 @@ void reservation()
 					if(r == 1)
 					{	
 						
-						fp = fopen("user_details.txt", "r");
+						fp = fopen("Databases/user_details.txt", "r");
 						fscanf(fp, "%d", &n);
 						
 						user *temp = (user*)malloc(sizeof(user)*n);
@@ -830,7 +830,7 @@ void reservation()
 						n++;
 						FILE *fp;
 						
-						fp = fopen("user_details_tmp.txt", "w");
+						fp = fopen("Databases/user_details_tmp.txt", "w");
 						fprintf(fp, "%d\n", n);
 						
 						for(int k = 0; k<n-1; k++)
@@ -926,7 +926,7 @@ int cancel(int train_num, int ticket_num)
 	FILE *user_file;
 	FILE *temp_file;
 	
-	user_file = fopen("user_details.txt", "r");
+	user_file = fopen("Databases/user_details.txt", "r");
 	
 	
 	printf("\n\t\tOpening database....\n\n"); 
@@ -940,7 +940,7 @@ int cancel(int train_num, int ticket_num)
 		}
 	else
 		{
-		temp_file = fopen("user_details_temp.txt", "w");		
+		temp_file = fopen("Databases/user_details_temp.txt", "w");		
 		
 		fscanf(user_file, "%d\n", &count);
 		fprintf(temp_file, "%d\n", count);
@@ -1226,7 +1226,7 @@ int check_status()
 { 	
 	int count, flag = 0;
 	
-	FILE *user_file = fopen("user_details.txt", "r");
+	FILE *user_file = fopen("Databases/user_details.txt", "r");
 	
 	user dummy;
 	date* tpd = (date*)malloc(sizeof(date));
@@ -1287,7 +1287,7 @@ int payment(user new)
 	pay p1;
 	if(new.charge>0.0)
 		{FILE * fPointer;
-		fPointer = fopen("bankacc.txt","r");
+		fPointer = fopen("Databases/bankacc.txt","r");
 		printf("\n");
 		c = reade(fPointer,&p1,new.charge);
 		printf("\n");	
@@ -1399,7 +1399,7 @@ int waiting_list_adder(user current_user)//To append to waiting list
 {
 	FILE* fp;
 	
-	fp = fopen("waiting_list.txt","a");	
+	fp = fopen("Databases/waiting_list.txt","a");	
 	fprintf(fp, "%s %s %s %d %d %d/%d/%d %.2f %d %d %.2f\n", 
 		current_user.id, current_user.name, current_user.train,
 		current_user.train_number, current_user.ticket_number, 
@@ -1416,7 +1416,7 @@ void waiting_list_writer() //To rewrite the waiting list
 {
 	FILE *user_file, *waiting_file;
 	
-	user_file = fopen("user_details.txt", "r");
+	user_file = fopen("Databases/user_details.txt", "r");
 		
 	int count; //Number of data entries
 	fscanf(user_file, "%d", &count);
@@ -1446,7 +1446,7 @@ void waiting_list_writer() //To rewrite the waiting list
 	fclose(user_file);
 	
 	//Now writing waiting list
-	waiting_file = fopen("waiting_list.txt", "w");		
+	waiting_file = fopen("Databases/waiting_list.txt", "w");		
 	for(int i = 0; i<limit; i++)
 	{
 	fprintf
