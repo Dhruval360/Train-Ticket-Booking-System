@@ -95,6 +95,7 @@ user passdetails; //The current user's structure
 
 int main()
 	{
+
 	char pasword[11] = {"\0"}, ch;
 	int i, res;
 	
@@ -117,12 +118,10 @@ int main()
 		ch = '*' ;
 		printf("%c",ch);
 		}
+
 	if(Login(usrname,name,pasword) == 1)
 		{
 		printf("\n\t\t\t\t              ================LOGIN SUCCESSFUL================");
-		strcpy(passdetails.name, name); 
-		strcpy(passdetails.id, usrname);
-		delay(1250);
 		start_menu();
 		}
 	return 0;
@@ -262,7 +261,7 @@ int Signup()
 		ch = '*' ;
 		printf("%c",ch);
 		}
-		
+
 	strcpy(acc.username, usrname);
 	strcpy(acc.name, name);
 	strcpy(acc.pass, pasword);
@@ -346,6 +345,7 @@ int Login (char username[],char name[], char pass[])
 //Main menu of the program
 void start_menu()
 {
+	delay(1250);
 	strcpy(passdetails.name,name);
 	strcpy(passdetails.id,usrname);
 	int ret;//To catch return values of all the functions 
